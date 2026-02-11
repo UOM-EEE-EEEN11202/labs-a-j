@@ -1,0 +1,119 @@
+{
+    "name": "EEEN11202 devcontainer",
+    "image": "ghcr.io/uom-eee-eeen11202/dockerfile:2526.3",
+    //"runArgs": ["--platform=linux/arm64" ],
+    "capAdd": ["SYS_PTRACE"],
+    "securityOpt": ["seccomp=unconfined"],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode-remote.vscode-remote-extensionpack",
+                "ms-vscode-remote.remote-containers",
+                "ms-vscode-remote.remote-ssh",
+                "ms-vscode-remote.remote-ssh-edit",
+                "ms-vscode.remote-explorer",
+                "ms-vscode-remote.remote-wsl",
+                "ms-vscode.powershell",
+                "GitHub.vscode-pull-request-github",
+                "github.codespaces",
+                "github.copilot",
+                "ms-python.python",
+                "ms-python.debugpy",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "ms-toolsai.jupyter-keymap",
+                "ms-toolsai.jupyter-renderers",
+                "ms-toolsai.vscode-jupyter-cell-tags",
+                "ms-toolsai.vscode-jupyter-slideshow",
+                "ms-toolsai.datawrangler",
+                "rust-lang.rust-analyzer",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "llvm-vs-code-extensions.lldb-dap",
+                "ms-vscode.hexeditor",
+                "streetsidesoftware.code-spell-checker",
+                "charliermarsh.ruff",
+                "James-Yu.latex-workshop",
+                "uom-eee-eeen11202.c-cpp-codelens"
+            ],
+            "settings": {
+                "git.openRepositoryInParentFolders": "always",
+                "git.detectSubmodules": false,
+                "git.detectSubmodulesLimit": 0,
+				"terminal.integrated.shellIntegration.enabled": false,
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "bash",
+                        "icon": "terminal-bash"
+                    }
+                },
+                "[python]": {
+                    "editor.defaultFormatter": "charliermarsh.ruff",
+                    "editor.formatOnSave": true,
+                    "editor.codeActionsOnSave": {
+                        "source.organizeImports.ruff": "explicit"
+                    },
+                    "defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+                    "terminal.activateEnvironment": true,
+                    "testing.pytestEnabled": true,
+                    "testing.pytestPath": "${workspaceFolder}/.venv/bin/pytest",
+                },
+                "notebook.formatOnSave.enabled": true,
+                "notebook.defaultFormatter": "charliermarsh.ruff",
+                "notebook.codeActionsOnSave": {
+                    "notebook.source.organizeImports": "explicit"
+                },
+                "[rust]": {
+                    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+                    "editor.formatOnSave": true
+                },
+                "rust-analyzer.linkedProjects": [
+                    "../lab-k/Cargo.toml",
+                    "../lab-l/Cargo.toml",
+                    "../lab-m/Cargo.toml",
+                    "../lab-n/Cargo.toml",
+                    "../lab-o/Cargo.toml",
+                    "../lab-p/Cargo.toml",
+                    "../lab-q/Cargo.toml"
+                ],
+                "[c]": {
+                    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+                    "editor.formatOnSave": true
+                },                
+                "[h]": {
+                    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+                    "editor.formatOnSave": true
+                },
+                "[cpp]": {
+                    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+                    "editor.formatOnSave": true
+                },
+                "llvm-vs-code-extensions.vscode-clangd.arguments": "--fallback-style=\"{ BasedOnStyle: Google, IndentWidth: 4}\"",
+                "lldb-dap.executable-path": "/usr/bin/lldb-dap-18",
+                "[latex-workshop.latex.tools]": {
+                    "name": "lualatexmk",
+                    "command": "latexmk",
+                    "args": [
+                        "-lualatex",
+		                "-shell-escape",
+                        "-synctex=1",
+                        "-interaction=nonstopmode",
+                        "-file-line-error",
+                        "-pdf",
+                        "-output-directory=%OUTDIR%",           
+                        "%DOC%"
+                    ],
+                    "env": {}
+                },
+                "[latex-workshop.latex.recipes]": {
+                        "name": "latexmk (lualatex)",
+                        "tools": ["lualatexmk"]
+                }
+            }
+        }
+    },
+    "waitFor": "postCreateCommand",
+    "postAttachCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global core.editor \"code --wait\"",
+	"forwardPorts": [],
+	"remoteUser": "vscode"
+}

@@ -1,0 +1,4 @@
+hello
+10
+100
+world
